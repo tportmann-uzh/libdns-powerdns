@@ -1,4 +1,4 @@
-module github.com/hostpoint-ag/libdns-powerdns
+module github.com/tportmann-uzh/libdns-powerdns
 
 go 1.16
 
