@@ -58,11 +58,13 @@ func mergeRRecs(fullZone *zones.Zone, records []libdns.Record) ([]zones.Resource
 			rr := zones.ResourceRecordSet{
 				Name:       t.Name,
 				Type:       t.Type,
-				TTL:        int(recs[0].TTL.Seconds()),
+				TTL:        t.TTL,
 				ChangeType: zones.ChangeTypeReplace,
 				Comments:   t.Comments,
 				Records:    make([]zones.Record, len(t.Records)),
 			}
+			fmt.Print("In mergeRRecs: ")
+			fmt.Println("t.TTL")
 			copy(rr.Records, t.Records)
 			// squash duplicate values
 			dupes := make(map[string]bool)
@@ -134,9 +136,12 @@ func convertLDHash(inHash map[string][]libdns.Record) []zones.ResourceRecordSet 
 		rr := zones.ResourceRecordSet{
 			Name:       recs[0].Name,
 			Type:       recs[0].Type,
-			TTL:        int(recs[0].TTL.Seconds()),
+			TTL:        int(recs[0].TTL),
 			ChangeType: zones.ChangeTypeReplace,
 		}
+		fmt.Print("in convertLDHash: ")
+		fmt.Println(int(recs[0].TTL))
+		fmt.Println(rr.TTL)
 		for _, rec := range recs {
 			rr.Records = append(rr.Records, zones.Record{
 				Content: rec.Value,
